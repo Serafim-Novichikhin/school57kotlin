@@ -19,9 +19,11 @@ class MovieBookingService(
     private val maxQuantityOfSeats: Int // Максимальное кол-во мест
 ) {
     init {
-        TODO("Выбрасывать IllegalArgumentException, максимальное кол-во мест отрицательное или равно нулю")
+        if (maxQuantityOfSeats <= 0) {
+            throw IllegalArgumentException("Максимальное кол-во мест отрицательное или равно нулю")
+        }
     }
-
+    private val seats: MutableMap<String, MutableMap<Int, Boolean>> = mutableMapOf()
     /**
      * Бронирует указанное место для фильма.
      *
@@ -32,7 +34,22 @@ class MovieBookingService(
      * @throws SeatAlreadyBookedException если место уже забронировано
      */
     fun bookSeat(movieId: String, seat: Int) {
-        TODO("Реализовать логику")
+        if (!seats.containsKey(movieId)) {
+            seats[movieId] = (1..maxQuantityOfSeats).associateWith { true } as MutableMap<Int, Boolean> // true - свободное место
+        }
+        if (seat !in 1..maxQuantityOfSeats) {
+            throw IllegalArgumentException("Номер места вне допустимого диапазона")
+        }
+        else seats[movieId]?.containsValue(true)?.let {
+            if (!it) {
+                throw NoAvailableSeatException("Нет больше свободных мест")
+            }
+            else if (isSeatBooked(movieId, seat)) {
+                throw SeatAlreadyBookedException("Место уже забронировано")
+            }
+        }
+
+        seats[movieId]?.put(seat, false)
     }
 
     /**
@@ -43,7 +60,10 @@ class MovieBookingService(
      * @throws NoSuchElementException если место не было забронировано
      */
     fun cancelBooking(movieId: String, seat: Int) {
-        TODO("Реализовать логику")
+        if (!isSeatBooked(movieId, seat)) {
+            throw NoSuchElementException("Место не было забронировано")
+        }
+        seats[movieId]?.set(seat, true)
     }
 
     /**
@@ -52,6 +72,14 @@ class MovieBookingService(
      * @return true если место занято, false иначе
      */
     fun isSeatBooked(movieId: String, seat: Int): Boolean {
-        TODO("Реализовать логику")
+        return seats[movieId]?.get(seat) == false
     }
+}
+
+
+fun main() {
+    val service = MovieBookingService(1000)
+    println(service.isSeatBooked("movie1", 1))
+    service.bookSeat("movie1", 1)
+    println(service.isSeatBooked("movie1", 1))
 }
