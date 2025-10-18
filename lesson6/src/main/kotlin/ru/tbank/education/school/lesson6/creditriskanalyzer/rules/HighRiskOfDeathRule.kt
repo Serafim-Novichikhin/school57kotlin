@@ -1,12 +1,9 @@
 package ru.tbank.education.school.lesson6.creditriskanalyzer.rules
 
-import ru.tbank.education.school.lesson6.creditriskanalyzer.models.AccountType
 import ru.tbank.education.school.lesson6.creditriskanalyzer.models.Client
-import ru.tbank.education.school.lesson6.creditriskanalyzer.models.Currency
 import ru.tbank.education.school.lesson6.creditriskanalyzer.models.PaymentRisk
 import ru.tbank.education.school.lesson6.creditriskanalyzer.models.Region
 import ru.tbank.education.school.lesson6.creditriskanalyzer.models.ScoringResult
-import ru.tbank.education.school.lesson6.creditriskanalyzer.repositories.AccountRepository
 import java.io.OutputStreamWriter
 import java.nio.charset.StandardCharsets
 import java.util.UUID
@@ -22,7 +19,7 @@ enum class Gender {
 }
 class HighRiskOfDeathRule() : ScoringRule {
 
-    override val ruleName: String = "Account Diversity"
+    override val ruleName: String = "Hidh-Risk Of Death"
 
     override fun evaluate(client: Client): ScoringResult {
         val consonant_letters = arrayOf("б", "в", "г", "д", "ж", "з", "й", "к", "л", "м", "н", "п", "р", "с", "т", "ф", "х", "ц", "ч", "ш", "щ", "ь", "ъ")
