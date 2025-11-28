@@ -103,8 +103,7 @@ class PaymentProcessor {
         return when {
             year < currentYear -> false
             year == currentYear -> month in 1..12 && month >= currentMonth
-            year > currentYear -> month in 1..12
-            else -> false
+            else -> month in 1..12
         }
     }
 
@@ -139,7 +138,6 @@ class PaymentProcessor {
 
         return sum % 10 != 0
     }
-
     /**
      * Имитация внешнего шлюза — внутренняя логика
      */
@@ -149,7 +147,7 @@ class PaymentProcessor {
             return GatewayResult(false, "Transaction limit exceeded")
         }
 
-        if (cardNumber.startsWith("4444")) {
+        if (cardNumber.startsWith("0000")) { // было 4444
             return GatewayResult(false, "Card blocked")
         }
 
