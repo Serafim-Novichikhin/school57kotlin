@@ -4,49 +4,51 @@
 Найти все строки со словом ERROR во всех логах в каталоге logs (включая logs/old) и сохранить их в файл errors.txt в корне проекта.
 
 ```bash
-TODO()
+grep -r ERROR ./logs/ > errors.txt
 ```
 
 ## Задание 2. Архивация старых логов
 Создать каталог archived/ в корне проекта и переместить туда все файлы из logs/old.
 
 ```bash
-TODO()
+mkdir archived && mv ./logs/old/* archived
 ```
 
 ## Задание 3. Подсчёт размера логов
 Посчитать общий размер каталога logs и записать результат в logs_size.txt.
 
 ```bash
-TODO()
+du -s ./logs > logs_size.txt
 ```
 
 ## Задание 4. Нахождение самого большого лог-файла
 Найти самый большой файл в каталоге logs (без учёта подкаталогов) и записать его имя в файл biglog.txt.
 
 ```bash
-TODO()
+du -a ./logs/* | sort -nr | head -n 1 | awk -F'/' '{print$NF}' > biglog.txt
+
+
 ```
 
 ## Задание 5. Подсчёт количества логов
 Подсчитать количество файлов с расширением .log во всём каталоге logs и сохранить результат в log_count.txt.
 
 ```bash
-TODO()
+find logs -name "*.log" | wc -l > log_count.txt
 ```
 
 ## Задание 6. Поиск конфигурационных параметров
 Найти во всех config/*.conf строки, содержащие слово "host", и записать в host_params.txt.
 
 ```bash
-TODO()
+grep -r --include "*.conf" "host" config > host_params.txt
 ```
 
 ## Задание 7. Создание резервного архива конфигов
 Создать zip-архив config_backup.zip, содержащий все файлы из config/.
 
 ```bash
-TODO()
+ powershell.exe -Command "Compress-Archive -Path config/* -DestinationPath config_backup.zip"
 ```
 
 ## Задание 8. Создание общего резервного архива
@@ -56,14 +58,14 @@ TODO()
 - файл errors.txt (если он есть)
 
 ```bash
-TODO()
+powershell.exe -Command "Compress-Archive -Path 'config/*.conf', 'logs/**/*.log', 'errors.txt' -DestinationPath project_backup.zip"
 ```
 
 ## Задание 9. Очистка пустых строк в логах
 Создать файл cleaned_app.log, содержащий содержимое app.log без пустых строк.
 
 ```bash
-TODO()
+$ grep -v "^$" ./logs/app.log > cleaned_app.log
 ```
 
 ## Задание 10. Подсчёт количества строк в каждом конфиге
@@ -73,7 +75,7 @@ db.conf 8
 (где число — количество строк в файле)
 
 ```bash
-TODO()
+wc -l app.conf db.conf | awk '{print $2 " " $1}' | head -n 2 > conf_stats.txt
 ```
 
 
