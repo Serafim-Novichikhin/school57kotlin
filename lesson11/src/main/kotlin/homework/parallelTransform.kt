@@ -1,5 +1,9 @@
 package homework
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+
 /**
  * Задание: Параллельное преобразование элементов списка с использованием async.
  *
@@ -13,5 +17,11 @@ suspend fun <T, R> parallelTransform(
     items: List<T>,
     transform: suspend (T) -> R
 ): List<R> {
-    TODO("Реализуйте параллельное преобразование с использованием async/await")
+    return coroutineScope {
+        items.map {
+            async {
+                transform(it)
+            }
+        }.awaitAll()
+    }
 }

@@ -7,7 +7,7 @@
  *
  */
 class VisibilityProblem {
-
+    @Volatile
     private var running = true
 
     /**
@@ -38,7 +38,6 @@ class VisibilityProblem {
             println("Reader: начал работу (ждет running = false)")
 
             while (running) {
-
             }
 
             println("Reader: завершил работу (увидел running = false)")
