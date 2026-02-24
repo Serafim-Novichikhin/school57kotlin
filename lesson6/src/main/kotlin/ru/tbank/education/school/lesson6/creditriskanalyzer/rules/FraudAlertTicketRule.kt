@@ -40,4 +40,4 @@ class FraudAlertTicketRule(
         }
         return ScoringResult(ruleName, if (resol) PaymentRisk.MEDIUM else PaymentRisk.LOW)
     }
-}
+}//

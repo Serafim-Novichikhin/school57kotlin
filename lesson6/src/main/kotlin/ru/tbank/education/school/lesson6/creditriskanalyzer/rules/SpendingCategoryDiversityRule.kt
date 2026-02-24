@@ -41,4 +41,4 @@ class SpendingCategoryDiversityRule(
             else -> PaymentRisk.LOW
         })
     }
-}
+}//

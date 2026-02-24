@@ -57,4 +57,4 @@ class IncomeExpenseRatioRule(
             else -> PaymentRisk.LOW
         })
     }
-}
+}//

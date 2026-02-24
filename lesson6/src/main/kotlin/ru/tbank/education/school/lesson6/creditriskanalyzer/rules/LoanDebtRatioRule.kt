@@ -42,4 +42,4 @@ class LoanDebtRatioRule(
             else -> PaymentRisk.MEDIUM
         })
     }
-}
+}//

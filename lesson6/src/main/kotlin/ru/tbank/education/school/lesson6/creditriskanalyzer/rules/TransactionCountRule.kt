@@ -33,4 +33,4 @@ class TransactionCountRule(
         }
         return ScoringResult(ruleName, if (transactions < 500) PaymentRisk.HIGH else PaymentRisk.MEDIUM)
     }
-}
+}//

@@ -43,4 +43,4 @@ class LoanCountRule(
             else -> PaymentRisk.LOW
         })
     }
-}
+}//
